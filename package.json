@@ -3,5 +3,15 @@
   "version": "1.0.0",
   "description": "Web App Widget to embed Beon's referral program inside the internal Google site",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "glogin": "clasp login",
+    "gcreate": "clasp create --title 'BEON Referral Program Web App' --rootDir ./google-apps-scripts",
+    "gpull": "clasp pull",
+    "gpush": "clasp push",
+    "gstart": "clasp push --watch"
+  },
+  "devDependencies": {
+    "@google/clasp": "^2.4.2"
+  }
 }
