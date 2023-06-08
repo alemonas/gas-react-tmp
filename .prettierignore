@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+storybook-static
+.github/workflows/**/*.yml
+deploy/**/*.yml
+*.json
+*.yml
+*.yaml
