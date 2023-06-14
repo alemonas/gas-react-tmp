@@ -2,7 +2,6 @@
   "name": "beon-referral-program",
   "version": "1.0.0",
   "description": "Web App Widget to embed Beon's referral program inside the internal Google site",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
     "glogin": "clasp login",

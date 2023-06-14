@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Beon Referral Program</title>
-</head>
-<body>
-  <div id="app"></div> 
-  <script>// modules are defined as an array
+    <head>
+        <meta charset="UTF-8">
+        <base target="_top">
+        <title>Beon Referral Program</title>
+    </head>
+    <body>
+        <div id="app"></div>
+        <script>// modules are defined as an array
 // [ module function, map of requires ]
 //
 // map of requires is short require name -> numeric require
@@ -150,13 +151,13 @@
       this[globalName] = mainExports;
     }
   }
-})({"d5uyh":[function(require,module,exports) {
+})({"7DYGi":[function(require,module,exports) {
 var global = arguments[3];
 var HMR_HOST = null;
 var HMR_PORT = null;
 var HMR_SECURE = false;
 var HMR_ENV_HASH = "d6ea1d42532a7575";
-module.bundle.HMR_BUNDLE_ID = "7074123dc0d22f05";
+module.bundle.HMR_BUNDLE_ID = "c35dece6b23f419f";
 "use strict";
 /* global HMR_HOST, HMR_PORT, HMR_ENV_HASH, HMR_SECURE, chrome, browser, __parcel__import__, __parcel__importScripts__, ServiceWorkerGlobalScope */ /*::
 import type {
@@ -2942,8 +2943,17 @@ process.umask = function() {
     return 0;
 };
 
-},{}],"ebH4u":[function(require,module,exports) {
+},{}],"8rYH3":[function(require,module,exports) {
+// Access user auth email pass from Google Script doGet function
+// using Google Script Standars Scriptlets
+// https://developers.google.com/apps-script/guides/html/templates#standard_scriptlets
 var _indexJs = require("./index.js");
+const googleAuthUserEmail = "<?= authUserEmail ?>";
+const isValidEmail = !googleAuthUserEmail.includes("authUserEmail");
+// TODO: Remove beonerTestUserEmail and show an error the email is not valid
+const beonerTestUserEmail = "alejandro.monasterios@beon.tech";
+const beonerUserEmail = isValidEmail ? googleAuthUserEmail : beonerTestUserEmail;
+localStorage.setItem("beoner-user-email", JSON.stringify(beonerUserEmail));
 
 },{"./index.js":"8lqZg"}],"8lqZg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$20e5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -27165,52 +27175,78 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "App", ()=>App);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 var _react = require("react");
+var _constants = require("./constants");
+var _useLocalStorageState = require("./hooks/useLocalStorageState");
+var _useLocalStorageStateDefault = parcelHelpers.interopDefault(_useLocalStorageState);
+var _useAsync = require("./hooks/useAsync");
+var _useAsyncDefault = parcelHelpers.interopDefault(_useAsync);
+var _apiClient = require("./utils/api-client");
+var _string = require("./utils/string");
 var _s = $RefreshSig$();
 function App() {
     _s();
-    const [data, setData] = (0, _react.useState)([]);
+    const { data: jobs , isIdle , isPending , error , run  } = (0, _useAsyncDefault.default)();
+    const [userAuthEmail] = (0, _useLocalStorageStateDefault.default)((0, _constants.BEONER_AUTH_USER_EMAIL_KEY));
     (0, _react.useEffect)(()=>{
-        const getData = async ()=>{
-            const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
-            const resData = await res.json();
-            console.log({
-                resData
-            });
-            setData(resData);
-        };
-        getData();
-    }, []);
-    console.log({
-        data
-    });
-    if (data.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        run((0, _apiClient.client)("jobs"));
+    }, [
+        run
+    ]);
+    if (isIdle || isPending) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "loading..."
     }, void 0, false, {
         fileName: "src/App.js",
-        lineNumber: 20,
+        lineNumber: 17,
+        columnNumber: 16
+    }, this);
+    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        children: "Referral Job Link error... please try again later"
+    }, void 0, false, {
+        fileName: "src/App.js",
+        lineNumber: 21,
         columnNumber: 16
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h1", {
-                children: "React + Google App Script Beon Referral Program!"
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
+                children: "jobs"
             }, void 0, false, {
-                fileName: "src/App.js",
-                lineNumber: 25,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                children: [
-                    data.id,
-                    ": "
-                ]
-            }, void 0, true, {
                 fileName: "src/App.js",
                 lineNumber: 26,
                 columnNumber: 13
             }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-                children: data.title
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("ul", {
+                children: jobs.data.map((job)=>{
+                    const basePlatformUrl = "https://platform.beon.tech/engineers/job-description?jobId";
+                    const link = `${basePlatformUrl}=${job.id}?referral=${(0, _string.getEmailLocalPart)(userAuthEmail)}`;
+                    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("li", {
+                        children: [
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                                children: [
+                                    job.title,
+                                    " "
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/App.js",
+                                lineNumber: 34,
+                                columnNumber: 29
+                            }, this),
+                            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
+                                href: link,
+                                target: "_blank",
+                                children: "(Job link)"
+                            }, void 0, false, {
+                                fileName: "src/App.js",
+                                lineNumber: 35,
+                                columnNumber: 29
+                            }, this)
+                        ]
+                    }, job.id, true, {
+                        fileName: "src/App.js",
+                        lineNumber: 33,
+                        columnNumber: 25
+                    }, this);
+                })
             }, void 0, false, {
                 fileName: "src/App.js",
                 lineNumber: 27,
@@ -27219,11 +27255,16 @@ function App() {
         ]
     }, void 0, true, {
         fileName: "src/App.js",
-        lineNumber: 24,
+        lineNumber: 25,
         columnNumber: 9
     }, this);
 }
-_s(App, "IEMTtLVFIuToo7X/raQbJAxzNQU=");
+_s(App, "75mOgD+Ev3Aj531IDX9MpEf5Zug=", false, function() {
+    return [
+        (0, _useAsyncDefault.default),
+        (0, _useLocalStorageStateDefault.default)
+    ];
+});
 _c = App;
 var _c;
 $RefreshReg$(_c, "App");
@@ -27233,7 +27274,13 @@ $RefreshReg$(_c, "App");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","react":"21dqq"}],"gkKU3":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","./constants":"3huJa","./hooks/useLocalStorageState":"a9Z28","./hooks/useAsync":"4fgc2","./utils/api-client":"5v0SW","./utils/string":"etDVs","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3huJa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "BEONER_AUTH_USER_EMAIL_KEY", ()=>BEONER_AUTH_USER_EMAIL_KEY);
+const BEONER_AUTH_USER_EMAIL_KEY = "beoner-user-email";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -27263,7 +27310,40 @@ exports.export = function(dest, destName, get) {
     });
 };
 
-},{}],"km3Ru":[function(require,module,exports) {
+},{}],"a9Z28":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$b9a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$b9a6.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _s = $RefreshSig$();
+function useLocalStorageState(key, defaultValue = "") {
+    _s();
+    const [state, setState] = (0, _react.useState)(()=>localStorage.getItem(key) || defaultValue);
+    (0, _react.useEffect)(()=>{
+        localStorage.setItem(key, state);
+    }, [
+        key,
+        state
+    ]);
+    return [
+        state,
+        setState
+    ];
+}
+_s(useLocalStorageState, "xJnU1kaG/j2AWMcds7joWK0iDpk=");
+exports.default = useLocalStorageState;
+
+  $parcel$ReactRefreshHelpers$b9a6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"km3Ru":[function(require,module,exports) {
 "use strict";
 var Refresh = require("7422ead32dcc1e6b");
 function debounce(func, delay) {
@@ -27401,8 +27481,149 @@ function registerExportsForReactRefresh(module1) {
     }
 }
 
-},{"7422ead32dcc1e6b":"786KC"}]},["d5uyh","1xC6H","ebH4u"], "ebH4u", "parcelRequire4f4c")
+},{"7422ead32dcc1e6b":"786KC"}],"4fgc2":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$5b58 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$5b58.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "STATUS", ()=>STATUS);
+var _react = require("react");
+var _reactDefault = parcelHelpers.interopDefault(_react);
+var _s = $RefreshSig$(), _s1 = $RefreshSig$();
+const STATUS = {
+    IDLE: "idle",
+    PENDING: "pending",
+    RESOLVED: "resolved",
+    REJECTED: "rejected"
+};
+function useSafeDispatch(dispatch) {
+    _s();
+    const mounted = (0, _reactDefault.default).useRef(false);
+    (0, _reactDefault.default).useLayoutEffect(()=>{
+        mounted.current = true;
+        return ()=>mounted.current = false;
+    }, []);
+    return (0, _reactDefault.default).useCallback((...args)=>mounted.current ? dispatch(...args) : void 0, [
+        dispatch
+    ]);
+}
+_s(useSafeDispatch, "pk07pkgTuRupakQWQjlI9cR9Cfc=");
+function asyncReducer(state, action) {
+    switch(action.type){
+        case STATUS.PENDING:
+            return {
+                status: STATUS.PENDING,
+                data: null,
+                error: null
+            };
+        case STATUS.RESOLVED:
+            return {
+                status: STATUS.RESOLVED,
+                data: action.data,
+                error: null
+            };
+        case STATUS.REJECTED:
+            return {
+                status: STATUS.REJECTED,
+                data: null,
+                error: action.error
+            };
+        default:
+            throw new Error(`Unhandled action type: ${action.type}`);
+    }
+}
+function useAsync(initialState) {
+    _s1();
+    const [state, unsafeDispatch] = (0, _reactDefault.default).useReducer(asyncReducer, {
+        status: STATUS.IDLE,
+        data: null,
+        error: null,
+        ...initialState
+    });
+    const dispatch = useSafeDispatch(unsafeDispatch);
+    const { data , error , status  } = state;
+    const run = (0, _reactDefault.default).useCallback((promise)=>{
+        dispatch({
+            type: STATUS.PENDING
+        });
+        promise.then((data)=>{
+            dispatch({
+                type: STATUS.RESOLVED,
+                data
+            });
+        }, (error)=>{
+            dispatch({
+                type: STATUS.REJECTED,
+                error
+            });
+        });
+    }, [
+        dispatch
+    ]);
+    return {
+        isIdle: status === STATUS.IDLE,
+        isPending: status === STATUS.PENDING,
+        isRejected: status === STATUS.REJECTED,
+        isResolved: status === STATUS.RESOLVED,
+        error,
+        status,
+        data,
+        run
+    };
+}
+_s1(useAsync, "lvy0JS2SkFXJ1PE9gak0lof1/ys=", false, function() {
+    return [
+        useSafeDispatch
+    ];
+});
+exports.default = useAsync;
+
+  $parcel$ReactRefreshHelpers$5b58.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"5v0SW":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "client", ()=>client);
+const apiURL = "https://api.dev.beon.tech";
+const apiToken = "f9ed9172-fd65-411a-84cf-9822bd90636e";
+async function client(endpoint, { data , token , headers: customHeaders , ...customConfig } = {}) {
+    const config = {
+        method: "GET",
+        body: data ? JSON.stringify(data) : undefined,
+        headers: {
+            "Content-type": data ? "application/json" : undefined,
+            "x-api-token": apiToken || "",
+            ...customHeaders
+        },
+        ...customConfig
+    };
+    console.log({
+        apiURL
+    });
+    return fetch(`${apiURL}/${endpoint}`, config).then(async (response)=>{
+        const data = await response.json();
+        if (response.ok) return data;
+        else return Promise.reject(data);
+    });
+}
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"etDVs":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "getEmailLocalPart", ()=>getEmailLocalPart);
+const getEmailLocalPart = (email = "")=>{
+    return email.split("@")[0].replace(/['"]+/g, "");
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["7DYGi","1xC6H","8rYH3"], "8rYH3", "parcelRequire4f4c")
 
 </script>
-</body>
+    </body>
 </html>

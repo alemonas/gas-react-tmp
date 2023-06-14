@@ -1,30 +1,44 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { BEONER_AUTH_USER_EMAIL_KEY } from './constants';
+import useLocalStorageState from './hooks/useLocalStorageState';
+import useAsync from './hooks/useAsync';
+import { client } from './utils/api-client';
+import { getEmailLocalPart } from './utils/string';
 
 export function App() {
-    const [data, setData] = useState([]);
+    const { data: jobs, isIdle, isPending, error, run } = useAsync();
+    const [userAuthEmail] = useLocalStorageState(BEONER_AUTH_USER_EMAIL_KEY);
 
     useEffect(() => {
-        const getData = async () => {
-            const res = await fetch('https://jsonplaceholder.typicode.com/todos/1');
-            const resData = await res.json();
-            console.log({ resData });
-            setData(resData);
-        };
+        run(client('jobs'));
+    }, [run]);
 
-        getData();
-    }, []);
-
-    console.log({ data });
-
-    if (data.length === 0) {
+    if (isIdle || isPending) {
         return <div>loading...</div>;
+    }
+
+    if (error) {
+        return <div>Referral Job Link error... please try again later</div>;
     }
 
     return (
         <div>
-            <h1>React + Google App Script Beon Referral Program!</h1>
-            <span>{data.id}: </span>
-            <span>{data.title}</span>
+            <h2>jobs</h2>
+            <ul>
+                {jobs.data.map((job) => {
+                    const basePlatformUrl = 'https://platform.beon.tech/engineers/job-description?jobId';
+
+                    const link = `${basePlatformUrl}=${job.id}?referral=${getEmailLocalPart(userAuthEmail)}`;
+                    return (
+                        <li key={job.id}>
+                            <span>{job.title} </span>
+                            <a href={link} target="_blank">
+                                (Job link)
+                            </a>
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
