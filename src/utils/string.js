@@ -1,3 +1,6 @@
-export const getEmailLocalPart = (email = '') => {
-    return email.split('@')[0].replace(/['"]+/g, '');
+import { encode } from 'js-base64';
+
+export const getEncodedUserEmail = (email) => {
+    const cleanEmail = email.replace(/['"]+/g, '');
+    return encode(cleanEmail);
 };
