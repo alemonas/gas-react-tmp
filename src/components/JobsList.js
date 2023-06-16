@@ -21,10 +21,9 @@ function JobList({ jobs = [] }) {
             </thead>
             <tbody>
                 {jobs.map((job) => {
+                    // NOTE: Not using `template literals` here since is causing issues in Google Scripts.
                     const basePlatformUrl = 'https://platform.beon.tech/engineers/job-description?jobId';
-                    // const link = `${basePlatformUrl}=${job.id}&referral=${getEncodedUserEmail(userAuthEmail)}`;
-                    const link = 'link';
-
+                    const link = basePlatformUrl + '=' + job.id + '&referral=' + getEncodedUserEmail(userAuthEmail);
                     return (
                         <tr key={job.id}>
                             <td>{job.title}</td>
@@ -34,7 +33,7 @@ function JobList({ jobs = [] }) {
                                 </a>
                             </td>
                             <td>share</td>
-                            <td>{job.referralBonus}</td>
+                            <td>{job.referralBonus || 'not defined'}</td>
                         </tr>
                     );
                 })}

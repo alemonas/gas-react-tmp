@@ -9,6 +9,7 @@
     "gpull": "clasp pull",
     "gpush": "clasp push",
     "gstart": "clasp push --watch",
+    "gbuild": "yarn build & yarn gpush",
     "dev": "parcel ./src/index.html --dist-dir ./public",
     "build": "parcel build ./src/index.html --dist-dir ./google-apps-scripts"
   },

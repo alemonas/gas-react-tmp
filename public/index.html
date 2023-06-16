@@ -27658,16 +27658,16 @@ function JobList({ jobs =[]  }) {
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
                 children: jobs.map((job)=>{
+                    // NOTE: Not using `template literals` here since is causing issues in Google Scripts.
                     const basePlatformUrl = "https://platform.beon.tech/engineers/job-description?jobId";
-                    // const link = `${basePlatformUrl}=${job.id}&referral=${getEncodedUserEmail(userAuthEmail)}`;
-                    const link = "link";
+                    const link = basePlatformUrl + "=" + job.id + "&referral=" + (0, _string.getEncodedUserEmail)(userAuthEmail);
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: job.title
                             }, void 0, false, {
                                 fileName: "src/components/JobsList.js",
-                                lineNumber: 30,
+                                lineNumber: 29,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27677,32 +27677,32 @@ function JobList({ jobs =[]  }) {
                                     children: "Referral Job Link"
                                 }, void 0, false, {
                                     fileName: "src/components/JobsList.js",
-                                    lineNumber: 32,
+                                    lineNumber: 31,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/JobsList.js",
-                                lineNumber: 31,
+                                lineNumber: 30,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: "share"
                             }, void 0, false, {
                                 fileName: "src/components/JobsList.js",
-                                lineNumber: 36,
+                                lineNumber: 35,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                children: job.referralBonus
+                                children: job.referralBonus || "not defined"
                             }, void 0, false, {
                                 fileName: "src/components/JobsList.js",
-                                lineNumber: 37,
+                                lineNumber: 36,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, job.id, true, {
                         fileName: "src/components/JobsList.js",
-                        lineNumber: 29,
+                        lineNumber: 28,
                         columnNumber: 25
                     }, this);
                 })
