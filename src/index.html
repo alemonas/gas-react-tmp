@@ -4,6 +4,9 @@
         <meta charset="UTF-8" />
         <base target="_top" />
         <title>Beon Referral Program</title>
+        <style>
+            @import './styles/main.scss';
+        </style>
     </head>
     <body>
         <div id="app"></div>
@@ -19,7 +22,6 @@
             const beonerUserEmail = isValidEmail ? googleAuthUserEmail : beonerTestUserEmail;
             localStorage.setItem('beoner-user-email', JSON.stringify(beonerUserEmail));
 
-            import './main.css';
             import './index.js';
         </script>
     </body>

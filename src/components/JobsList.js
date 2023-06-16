@@ -22,7 +22,8 @@ function JobList({ jobs = [] }) {
             <tbody>
                 {jobs.map((job) => {
                     const basePlatformUrl = 'https://platform.beon.tech/engineers/job-description?jobId';
-                    const link = `${basePlatformUrl}=${job.id}&referral=${getEncodedUserEmail(userAuthEmail)}`;
+                    // const link = `${basePlatformUrl}=${job.id}&referral=${getEncodedUserEmail(userAuthEmail)}`;
+                    const link = 'link';
 
                     return (
                         <tr key={job.id}>
@@ -33,7 +34,7 @@ function JobList({ jobs = [] }) {
                                 </a>
                             </td>
                             <td>share</td>
-                            <td>Bonus $</td>
+                            <td>{job.referralBonus}</td>
                         </tr>
                     );
                 })}

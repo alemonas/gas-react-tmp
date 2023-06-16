@@ -7,7 +7,7 @@ function Jobs() {
     const { data: jobs, isIdle, isPending, error, run } = useAsync();
 
     useEffect(() => {
-        run(client('jobs'));
+        run(client('jobs?isReferral=true'));
     }, [run]);
 
     if (isIdle || isPending) {
