@@ -17,10 +17,16 @@
             const googleAuthUserEmail = '<?= authUserEmail ?>';
             const isValidEmail = !googleAuthUserEmail.includes('authUserEmail');
 
+            const envProps = JSON.parse('<?= JSON.stringify(envProps) ?>');
+
             // TODO: Remove beonerTestUserEmail and show an error the email is not valid
             const beonerTestUserEmail = 'alejandro.monasterios@beon.tech';
             const beonerUserEmail = isValidEmail ? googleAuthUserEmail : beonerTestUserEmail;
+            const { beonApiUrl = '', beonPlatformUrl = '' } = envProps;
+
             localStorage.setItem('beoner-user-email', JSON.stringify(beonerUserEmail));
+            localStorage.setItem('beon-api-url', JSON.stringify(beonApiUrl));
+            localStorage.setItem('beon-platform-url', JSON.stringify(beonPlatformUrl));
 
             import './index.js';
         </script>

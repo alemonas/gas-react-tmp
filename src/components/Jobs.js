@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import useAsync from '../hooks/useAsync';
 import { client } from '../utils/api-client';
 import JobsTable from './JobsTable';
+import { Alert, Spinner } from './Lib';
 
 function Jobs() {
     const { data: jobs, isIdle, isPending, error, run } = useAsync();
@@ -11,15 +12,11 @@ function Jobs() {
     }, [run]);
 
     if (isIdle || isPending) {
-        return (
-            <div className="message">
-                <span className="message-loading">loading...</span>
-            </div>
-        );
+        return <Spinner />;
     }
 
     if (error) {
-        return <div>Referral Job Link error... please try again later</div>;
+        return <Alert>There was an error... please try again later</Alert>;
     }
 
     return (

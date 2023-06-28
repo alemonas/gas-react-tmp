@@ -28,7 +28,7 @@ function asyncReducer(state, action) {
             return { status: STATUS.REJECTED, data: null, error: action.error };
         }
         default: {
-            throw new Error(`Unhandled action type: ${action.type}`);
+            throw new Error('Unhandled action type:' + action.type);
         }
     }
 }

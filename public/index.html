@@ -38,8 +38,54 @@ a {
   background: #eee;
 }
 
-.jobLink {
+.jobs-table__link {
   color: #3a69ff;
+}
+
+.spinner {
+  justify-content: center;
+  align-items: center;
+  margin: 1rem 0;
+  display: flex;
+}
+
+.spinner__loader {
+  display: block;
+}
+
+.loader, .spinner__loader {
+  box-sizing: border-box;
+  border: 5px solid #3a69ff;
+  border-bottom-color: #0000;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: 1s linear infinite rotation;
+  display: inline-block;
+}
+
+.alert {
+  text-align: center;
+  margin: .5rem;
+  font-weight: bold;
+}
+
+.alert-primary {
+  color: #3a69ff;
+}
+
+.alert-warning {
+  color: #85640c;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 
@@ -2991,10 +3037,14 @@ process.umask = function() {
 var _indexJs = require("./index.js");
 const googleAuthUserEmail = "<?= authUserEmail ?>";
 const isValidEmail = !googleAuthUserEmail.includes("authUserEmail");
+const envProps = JSON.parse("<?= JSON.stringify(envProps) ?>");
 // TODO: Remove beonerTestUserEmail and show an error the email is not valid
 const beonerTestUserEmail = "alejandro.monasterios@beon.tech";
 const beonerUserEmail = isValidEmail ? googleAuthUserEmail : beonerTestUserEmail;
+const { beonApiUrl ="" , beonPlatformUrl =""  } = envProps;
 localStorage.setItem("beoner-user-email", JSON.stringify(beonerUserEmail));
+localStorage.setItem("beon-api-url", JSON.stringify(beonApiUrl));
+localStorage.setItem("beon-platform-url", JSON.stringify(beonPlatformUrl));
 
 },{"./index.js":"8lqZg"}],"8lqZg":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$20e5 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
@@ -27249,6 +27299,7 @@ var _useAsyncDefault = parcelHelpers.interopDefault(_useAsync);
 var _apiClient = require("../utils/api-client");
 var _jobsTable = require("./JobsTable");
 var _jobsTableDefault = parcelHelpers.interopDefault(_jobsTable);
+var _lib = require("./Lib");
 var _s = $RefreshSig$();
 function Jobs() {
     _s();
@@ -27258,26 +27309,16 @@ function Jobs() {
     }, [
         run
     ]);
-    if (isIdle || isPending) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        className: "message",
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
-            className: "message-loading",
-            children: "loading..."
-        }, void 0, false, {
-            fileName: "src/components/Jobs.js",
-            lineNumber: 16,
-            columnNumber: 17
-        }, this)
-    }, void 0, false, {
+    if (isIdle || isPending) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _lib.Spinner), {}, void 0, false, {
         fileName: "src/components/Jobs.js",
         lineNumber: 15,
-        columnNumber: 13
+        columnNumber: 16
     }, this);
-    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: "Referral Job Link error... please try again later"
+    if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _lib.Alert), {
+        children: "There was an error... please try again later"
     }, void 0, false, {
         fileName: "src/components/Jobs.js",
-        lineNumber: 22,
+        lineNumber: 19,
         columnNumber: 16
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
@@ -27285,12 +27326,12 @@ function Jobs() {
             jobs: jobs.data
         }, void 0, false, {
             fileName: "src/components/Jobs.js",
-            lineNumber: 27,
+            lineNumber: 24,
             columnNumber: 13
         }, this)
     }, void 0, false, {
         fileName: "src/components/Jobs.js",
-        lineNumber: 26,
+        lineNumber: 23,
         columnNumber: 9
     }, this);
 }
@@ -27309,7 +27350,7 @@ $RefreshReg$(_c, "Jobs");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../hooks/useAsync":"4fgc2","../utils/api-client":"5v0SW","./JobsTable":"7vOCC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4fgc2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../hooks/useAsync":"4fgc2","../utils/api-client":"5v0SW","./JobsTable":"7vOCC","./Lib":"l5763","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4fgc2":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$5b58 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27361,7 +27402,7 @@ function asyncReducer(state, action) {
                 error: action.error
             };
         default:
-            throw new Error(`Unhandled action type: ${action.type}`);
+            throw new Error("Unhandled action type:" + action.type);
     }
 }
 function useAsync(initialState) {
@@ -27600,9 +27641,6 @@ async function client(endpoint, { data , token , headers: customHeaders , ...cus
         },
         ...customConfig
     };
-    console.log({
-        apiURL
-    });
     return fetch(`${apiURL}/${endpoint}`, config).then(async (response)=>{
         const data = await response.json();
         if (response.ok) return data;
@@ -27625,20 +27663,21 @@ var _useLocalStorageStateDefault = parcelHelpers.interopDefault(_useLocalStorage
 var _constants = require("../constants");
 var _user = require("../utils/user");
 var _s = $RefreshSig$();
+const beonPlatformUrl = "http://localhost:3000";
 function JobsTable({ jobs =[]  }) {
     _s();
     const [userAuthEmail] = (0, _useLocalStorageStateDefault.default)((0, _constants.BEONER_USER_EMAIL_LOCAL_STORAGE_KEY));
-    if (jobs.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: "No Referral Jobs were Found"
+    if (jobs.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)(Alert, {
+        children: "No referral jobs were found"
     }, void 0, false, {
         fileName: "src/components/JobsTable.js",
-        lineNumber: 9,
+        lineNumber: 11,
         columnNumber: 16
     }, this);
     const getJobUrl = (job = {})=>{
         // NOTE: Not using `template literals` here since is causing issues in Google Scripts.
-        // const basePlatformUrl = 'https://platform.dev.beon.tech/engineers/job-description';
-        const basePlatformUrl = "http://localhost:3000/engineers/job-description";
+        const basePlatformUrl = beonPlatformUrl + "/engineers/job-description";
+        // const basePlatformUrl = 'http://localhost:3000/engineers/job-description';
         const jobIdParam = "?jobId=" + job.id;
         const referralCodeParam = "&" + (0, _constants.REFERRAL_CODE_URL_PARAM_NAME) + "=" + (0, _user.getEncodedUserEmail)(userAuthEmail);
         return basePlatformUrl + jobIdParam + referralCodeParam;
@@ -27653,50 +27692,53 @@ function JobsTable({ jobs =[]  }) {
                             children: "Job Description"
                         }, void 0, false, {
                             fileName: "src/components/JobsTable.js",
-                            lineNumber: 26,
+                            lineNumber: 28,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Referral Link"
                         }, void 0, false, {
                             fileName: "src/components/JobsTable.js",
-                            lineNumber: 27,
+                            lineNumber: 29,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Share Actions"
                         }, void 0, false, {
                             fileName: "src/components/JobsTable.js",
-                            lineNumber: 28,
+                            lineNumber: 30,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Referral Bonus"
                         }, void 0, false, {
                             fileName: "src/components/JobsTable.js",
-                            lineNumber: 29,
+                            lineNumber: 31,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "src/components/JobsTable.js",
-                    lineNumber: 25,
+                    lineNumber: 27,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "src/components/JobsTable.js",
-                lineNumber: 24,
+                lineNumber: 26,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
                 children: jobs.map((job)=>{
+                    const stagingBeonPlatformUrl = "https://platform.dev.beon.tech";
+                    const publicJobUrl = stagingBeonPlatformUrl + "/jobs/" + job.uuid;
+                    const linkedinHrefLink = `https://www.linkedin.com/sharing/share-offsite/?url=${publicJobUrl}`;
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: job.title
                             }, void 0, false, {
                                 fileName: "src/components/JobsTable.js",
-                                lineNumber: 36,
+                                lineNumber: 41,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27704,22 +27746,39 @@ function JobsTable({ jobs =[]  }) {
                                     className: "jobs-table__link",
                                     href: getJobUrl(job),
                                     target: "_blank",
-                                    children: "Copy Job Link"
+                                    children: "Open Job Link"
                                 }, void 0, false, {
                                     fileName: "src/components/JobsTable.js",
-                                    lineNumber: 38,
+                                    lineNumber: 43,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "src/components/JobsTable.js",
-                                lineNumber: 37,
+                                lineNumber: 42,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                children: "share"
+                                children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
+                                    href: linkedinHrefLink,
+                                    target: "_blank",
+                                    children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+                                        alt: "linkedin",
+                                        src: "https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png",
+                                        width: 24,
+                                        height: 24
+                                    }, void 0, false, {
+                                        fileName: "src/components/JobsTable.js",
+                                        lineNumber: 49,
+                                        columnNumber: 37
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "src/components/JobsTable.js",
+                                    lineNumber: 48,
+                                    columnNumber: 33
+                                }, this)
                             }, void 0, false, {
                                 fileName: "src/components/JobsTable.js",
-                                lineNumber: 42,
+                                lineNumber: 47,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
@@ -27729,25 +27788,25 @@ function JobsTable({ jobs =[]  }) {
                                 ]
                             }, void 0, true, {
                                 fileName: "src/components/JobsTable.js",
-                                lineNumber: 43,
+                                lineNumber: 57,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, job.id, true, {
                         fileName: "src/components/JobsTable.js",
-                        lineNumber: 35,
+                        lineNumber: 40,
                         columnNumber: 25
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "src/components/JobsTable.js",
-                lineNumber: 32,
+                lineNumber: 34,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "src/components/JobsTable.js",
-        lineNumber: 23,
+        lineNumber: 25,
         columnNumber: 9
     }, this);
 }
@@ -27766,7 +27825,7 @@ $RefreshReg$(_c, "JobsTable");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../hooks/useLocalStorageState":"a9Z28","../constants":"3huJa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../utils/user":"rTzNl"}],"a9Z28":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../hooks/useLocalStorageState":"a9Z28","../constants":"3huJa","../utils/user":"rTzNl","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"a9Z28":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$b9a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -29466,7 +29525,65 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
     buffer[offset + i - d] |= s * 128;
 };
 
-},{}]},["d7XpW","1xC6H","gmHWq"], "gmHWq", "parcelRequire4f4c")
+},{}],"l5763":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$2f22 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$2f22.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Spinner", ()=>Spinner);
+parcelHelpers.export(exports, "Alert", ()=>Alert);
+var _jsxDevRuntime = require("react/jsx-dev-runtime");
+const Spinner = ()=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "spinner",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+            "aria-label": "loading",
+            className: "spinner__loader"
+        }, void 0, false, {
+            fileName: "src/components/Lib.js",
+            lineNumber: 4,
+            columnNumber: 13
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/components/Lib.js",
+        lineNumber: 3,
+        columnNumber: 9
+    }, undefined);
+};
+_c = Spinner;
+const Alert = ({ variant ="primary" , children  })=>{
+    return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+        className: "alert",
+        role: "alert",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+            className: `alert-${variant}`,
+            children: children
+        }, void 0, false, {
+            fileName: "src/components/Lib.js",
+            lineNumber: 12,
+            columnNumber: 13
+        }, undefined)
+    }, void 0, false, {
+        fileName: "src/components/Lib.js",
+        lineNumber: 11,
+        columnNumber: 9
+    }, undefined);
+};
+_c1 = Alert;
+var _c, _c1;
+$RefreshReg$(_c, "Spinner");
+$RefreshReg$(_c1, "Alert");
+
+  $parcel$ReactRefreshHelpers$2f22.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react/jsx-dev-runtime":"iTorj","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}]},["d7XpW","1xC6H","gmHWq"], "gmHWq", "parcelRequire4f4c")
 
 </script>
     </body>
