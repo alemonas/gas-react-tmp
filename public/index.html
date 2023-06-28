@@ -4,18 +4,42 @@
         <meta charset="UTF-8">
         <base target="_top">
         <title>Beon Referral Program</title>
-        <style>td, th {
-  text-align: left;
-  border: 1px solid #ccc;
-  max-width: 300px;
-  padding: 3px;
+        <style>html, body {
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
-th {
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.jobs-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.jobs-table th, .jobs-table td {
+  text-align: left;
+  padding: 1rem;
+}
+
+.jobs-table th {
   color: #fff;
   background: #3a69ff;
-  border-color: #fff;
-  padding: 10px;
+}
+
+.jobs-table tbody tr:nth-child(odd) {
+  background: #eee;
+}
+
+.jobLink {
+  color: #3a69ff;
 }
 
 
@@ -27223,51 +27247,50 @@ var _react = require("react");
 var _useAsync = require("../hooks/useAsync");
 var _useAsyncDefault = parcelHelpers.interopDefault(_useAsync);
 var _apiClient = require("../utils/api-client");
-var _jobsList = require("./JobsList");
-var _jobsListDefault = parcelHelpers.interopDefault(_jobsList);
+var _jobsTable = require("./JobsTable");
+var _jobsTableDefault = parcelHelpers.interopDefault(_jobsTable);
 var _s = $RefreshSig$();
 function Jobs() {
     _s();
     const { data: jobs , isIdle , isPending , error , run  } = (0, _useAsyncDefault.default)();
     (0, _react.useEffect)(()=>{
-        run((0, _apiClient.client)("jobs?isReferral=true"));
+        run((0, _apiClient.client)("jobs?isReferralBonusActive=true&showHidden=true&status=published"));
     }, [
         run
     ]);
     if (isIdle || isPending) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: "loading..."
+        className: "message",
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+            className: "message-loading",
+            children: "loading..."
+        }, void 0, false, {
+            fileName: "src/components/Jobs.js",
+            lineNumber: 16,
+            columnNumber: 17
+        }, this)
     }, void 0, false, {
         fileName: "src/components/Jobs.js",
-        lineNumber: 14,
-        columnNumber: 16
+        lineNumber: 15,
+        columnNumber: 13
     }, this);
     if (error) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "Referral Job Link error... please try again later"
     }, void 0, false, {
         fileName: "src/components/Jobs.js",
-        lineNumber: 18,
+        lineNumber: 22,
         columnNumber: 16
     }, this);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        children: [
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("h2", {
-                children: "jobs"
-            }, void 0, false, {
-                fileName: "src/components/Jobs.js",
-                lineNumber: 23,
-                columnNumber: 13
-            }, this),
-            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jobsListDefault.default), {
-                jobs: jobs.data
-            }, void 0, false, {
-                fileName: "src/components/Jobs.js",
-                lineNumber: 24,
-                columnNumber: 13
-            }, this)
-        ]
-    }, void 0, true, {
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jobsTableDefault.default), {
+            jobs: jobs.data
+        }, void 0, false, {
+            fileName: "src/components/Jobs.js",
+            lineNumber: 27,
+            columnNumber: 13
+        }, this)
+    }, void 0, false, {
         fileName: "src/components/Jobs.js",
-        lineNumber: 22,
+        lineNumber: 26,
         columnNumber: 9
     }, this);
 }
@@ -27286,7 +27309,7 @@ $RefreshReg$(_c, "Jobs");
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../hooks/useAsync":"4fgc2","../utils/api-client":"5v0SW","./JobsList":"axw3G","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4fgc2":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","react":"21dqq","../hooks/useAsync":"4fgc2","../utils/api-client":"5v0SW","./JobsTable":"7vOCC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"4fgc2":[function(require,module,exports) {
 var $parcel$ReactRefreshHelpers$5b58 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
@@ -27587,32 +27610,41 @@ async function client(endpoint, { data , token , headers: customHeaders , ...cus
     });
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"axw3G":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$98f0 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"7vOCC":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$b387 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
 var prevRefreshReg = window.$RefreshReg$;
 var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$98f0.prelude(module);
+$parcel$ReactRefreshHelpers$b387.prelude(module);
 
 try {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
-var _string = require("../utils/string");
 var _useLocalStorageState = require("../hooks/useLocalStorageState");
 var _useLocalStorageStateDefault = parcelHelpers.interopDefault(_useLocalStorageState);
 var _constants = require("../constants");
+var _user = require("../utils/user");
 var _s = $RefreshSig$();
-function JobList({ jobs =[]  }) {
+function JobsTable({ jobs =[]  }) {
     _s();
-    const [userAuthEmail] = (0, _useLocalStorageStateDefault.default)((0, _constants.BEONER_AUTH_USER_EMAIL_KEY));
+    const [userAuthEmail] = (0, _useLocalStorageStateDefault.default)((0, _constants.BEONER_USER_EMAIL_LOCAL_STORAGE_KEY));
     if (jobs.length === 0) return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
         children: "No Referral Jobs were Found"
     }, void 0, false, {
-        fileName: "src/components/JobsList.js",
+        fileName: "src/components/JobsTable.js",
         lineNumber: 9,
         columnNumber: 16
     }, this);
+    const getJobUrl = (job = {})=>{
+        // NOTE: Not using `template literals` here since is causing issues in Google Scripts.
+        // const basePlatformUrl = 'https://platform.dev.beon.tech/engineers/job-description';
+        const basePlatformUrl = "http://localhost:3000/engineers/job-description";
+        const jobIdParam = "?jobId=" + job.id;
+        const referralCodeParam = "&" + (0, _constants.REFERRAL_CODE_URL_PARAM_NAME) + "=" + (0, _user.getEncodedUserEmail)(userAuthEmail);
+        return basePlatformUrl + jobIdParam + referralCodeParam;
+    };
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("table", {
+        className: "jobs-table",
         children: [
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("thead", {
                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
@@ -27620,120 +27652,162 @@ function JobList({ jobs =[]  }) {
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Job Description"
                         }, void 0, false, {
-                            fileName: "src/components/JobsList.js",
-                            lineNumber: 16,
+                            fileName: "src/components/JobsTable.js",
+                            lineNumber: 26,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Referral Link"
                         }, void 0, false, {
-                            fileName: "src/components/JobsList.js",
-                            lineNumber: 17,
+                            fileName: "src/components/JobsTable.js",
+                            lineNumber: 27,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Share Actions"
                         }, void 0, false, {
-                            fileName: "src/components/JobsList.js",
-                            lineNumber: 18,
+                            fileName: "src/components/JobsTable.js",
+                            lineNumber: 28,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("th", {
                             children: "Referral Bonus"
                         }, void 0, false, {
-                            fileName: "src/components/JobsList.js",
-                            lineNumber: 19,
+                            fileName: "src/components/JobsTable.js",
+                            lineNumber: 29,
                             columnNumber: 21
                         }, this)
                     ]
                 }, void 0, true, {
-                    fileName: "src/components/JobsList.js",
-                    lineNumber: 15,
+                    fileName: "src/components/JobsTable.js",
+                    lineNumber: 25,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
-                fileName: "src/components/JobsList.js",
-                lineNumber: 14,
+                fileName: "src/components/JobsTable.js",
+                lineNumber: 24,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tbody", {
                 children: jobs.map((job)=>{
-                    // NOTE: Not using `template literals` here since is causing issues in Google Scripts.
-                    const basePlatformUrl = "https://platform.beon.tech/engineers/job-description?jobId";
-                    const link = basePlatformUrl + "=" + job.id + "&referral=" + (0, _string.getEncodedUserEmail)(userAuthEmail);
                     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("tr", {
                         children: [
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: job.title
                             }, void 0, false, {
-                                fileName: "src/components/JobsList.js",
-                                lineNumber: 29,
+                                fileName: "src/components/JobsTable.js",
+                                lineNumber: 36,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("a", {
-                                    href: link,
+                                    className: "jobs-table__link",
+                                    href: getJobUrl(job),
                                     target: "_blank",
-                                    children: "Referral Job Link"
+                                    children: "Copy Job Link"
                                 }, void 0, false, {
-                                    fileName: "src/components/JobsList.js",
-                                    lineNumber: 31,
+                                    fileName: "src/components/JobsTable.js",
+                                    lineNumber: 38,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
-                                fileName: "src/components/JobsList.js",
-                                lineNumber: 30,
+                                fileName: "src/components/JobsTable.js",
+                                lineNumber: 37,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
                                 children: "share"
                             }, void 0, false, {
-                                fileName: "src/components/JobsList.js",
-                                lineNumber: 35,
+                                fileName: "src/components/JobsTable.js",
+                                lineNumber: 42,
                                 columnNumber: 29
                             }, this),
                             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("td", {
-                                children: job.referralBonus || "not defined"
-                            }, void 0, false, {
-                                fileName: "src/components/JobsList.js",
-                                lineNumber: 36,
+                                children: [
+                                    job.referralBonus + " $us",
+                                    " "
+                                ]
+                            }, void 0, true, {
+                                fileName: "src/components/JobsTable.js",
+                                lineNumber: 43,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, job.id, true, {
-                        fileName: "src/components/JobsList.js",
-                        lineNumber: 28,
+                        fileName: "src/components/JobsTable.js",
+                        lineNumber: 35,
                         columnNumber: 25
                     }, this);
                 })
             }, void 0, false, {
-                fileName: "src/components/JobsList.js",
-                lineNumber: 22,
+                fileName: "src/components/JobsTable.js",
+                lineNumber: 32,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
-        fileName: "src/components/JobsList.js",
-        lineNumber: 13,
+        fileName: "src/components/JobsTable.js",
+        lineNumber: 23,
         columnNumber: 9
     }, this);
 }
-_s(JobList, "j93YDNemEqc3s+dYwbGYyevmG7U=", false, function() {
+_s(JobsTable, "j93YDNemEqc3s+dYwbGYyevmG7U=", false, function() {
     return [
         (0, _useLocalStorageStateDefault.default)
     ];
 });
-_c = JobList;
-exports.default = JobList;
+_c = JobsTable;
+exports.default = JobsTable;
 var _c;
-$RefreshReg$(_c, "JobList");
+$RefreshReg$(_c, "JobsTable");
 
-  $parcel$ReactRefreshHelpers$98f0.postlude(module);
+  $parcel$ReactRefreshHelpers$b387.postlude(module);
 } finally {
   window.$RefreshReg$ = prevRefreshReg;
   window.$RefreshSig$ = prevRefreshSig;
 }
-},{"react/jsx-dev-runtime":"iTorj","../utils/string":"etDVs","../hooks/useLocalStorageState":"a9Z28","../constants":"3huJa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"etDVs":[function(require,module,exports) {
+},{"react/jsx-dev-runtime":"iTorj","../hooks/useLocalStorageState":"a9Z28","../constants":"3huJa","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru","../utils/user":"rTzNl"}],"a9Z28":[function(require,module,exports) {
+var $parcel$ReactRefreshHelpers$b9a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
+var prevRefreshReg = window.$RefreshReg$;
+var prevRefreshSig = window.$RefreshSig$;
+$parcel$ReactRefreshHelpers$b9a6.prelude(module);
+
+try {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+var _react = require("react");
+var _s = $RefreshSig$();
+function useLocalStorageState(key, defaultValue = "") {
+    _s();
+    const [state, setState] = (0, _react.useState)(()=>localStorage.getItem(key) || defaultValue);
+    (0, _react.useEffect)(()=>{
+        localStorage.setItem(key, state);
+    }, [
+        key,
+        state
+    ]);
+    return [
+        state,
+        setState
+    ];
+}
+_s(useLocalStorageState, "xJnU1kaG/j2AWMcds7joWK0iDpk=");
+exports.default = useLocalStorageState;
+
+  $parcel$ReactRefreshHelpers$b9a6.postlude(module);
+} finally {
+  window.$RefreshReg$ = prevRefreshReg;
+  window.$RefreshSig$ = prevRefreshSig;
+}
+},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3huJa":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "BEONER_USER_EMAIL_LOCAL_STORAGE_KEY", ()=>BEONER_USER_EMAIL_LOCAL_STORAGE_KEY);
+parcelHelpers.export(exports, "REFERRAL_CODE_URL_PARAM_NAME", ()=>REFERRAL_CODE_URL_PARAM_NAME);
+const BEONER_USER_EMAIL_LOCAL_STORAGE_KEY = "beoner-user-email";
+const REFERRAL_CODE_URL_PARAM_NAME = "referralCode";
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"rTzNl":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "getEncodedUserEmail", ()=>getEncodedUserEmail);
@@ -29392,46 +29466,7 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
     buffer[offset + i - d] |= s * 128;
 };
 
-},{}],"a9Z28":[function(require,module,exports) {
-var $parcel$ReactRefreshHelpers$b9a6 = require("@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js");
-var prevRefreshReg = window.$RefreshReg$;
-var prevRefreshSig = window.$RefreshSig$;
-$parcel$ReactRefreshHelpers$b9a6.prelude(module);
-
-try {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-var _react = require("react");
-var _s = $RefreshSig$();
-function useLocalStorageState(key, defaultValue = "") {
-    _s();
-    const [state, setState] = (0, _react.useState)(()=>localStorage.getItem(key) || defaultValue);
-    (0, _react.useEffect)(()=>{
-        localStorage.setItem(key, state);
-    }, [
-        key,
-        state
-    ]);
-    return [
-        state,
-        setState
-    ];
-}
-_s(useLocalStorageState, "xJnU1kaG/j2AWMcds7joWK0iDpk=");
-exports.default = useLocalStorageState;
-
-  $parcel$ReactRefreshHelpers$b9a6.postlude(module);
-} finally {
-  window.$RefreshReg$ = prevRefreshReg;
-  window.$RefreshSig$ = prevRefreshSig;
-}
-},{"react":"21dqq","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","@parcel/transformer-react-refresh-wrap/lib/helpers/helpers.js":"km3Ru"}],"3huJa":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "BEONER_AUTH_USER_EMAIL_KEY", ()=>BEONER_AUTH_USER_EMAIL_KEY);
-const BEONER_AUTH_USER_EMAIL_KEY = "beoner-user-email";
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["d7XpW","1xC6H","gmHWq"], "gmHWq", "parcelRequire4f4c")
+},{}]},["d7XpW","1xC6H","gmHWq"], "gmHWq", "parcelRequire4f4c")
 
 </script>
     </body>

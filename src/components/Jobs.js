@@ -1,17 +1,21 @@
 import { useEffect } from 'react';
 import useAsync from '../hooks/useAsync';
 import { client } from '../utils/api-client';
-import JobsList from './JobsList';
+import JobsTable from './JobsTable';
 
 function Jobs() {
     const { data: jobs, isIdle, isPending, error, run } = useAsync();
 
     useEffect(() => {
-        run(client('jobs?isReferral=true'));
+        run(client('jobs?isReferralBonusActive=true&showHidden=true&status=published'));
     }, [run]);
 
     if (isIdle || isPending) {
-        return <div>loading...</div>;
+        return (
+            <div className="message">
+                <span className="message-loading">loading...</span>
+            </div>
+        );
     }
 
     if (error) {
@@ -20,8 +24,7 @@ function Jobs() {
 
     return (
         <div>
-            <h2>jobs</h2>
-            <JobsList jobs={jobs.data} />
+            <JobsTable jobs={jobs.data} />
         </div>
     );
 }
