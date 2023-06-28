@@ -4,8 +4,5 @@ function doGet() {
 
     template.authUserEmail = authUserEmail;
 
-    return template
-        .evaluate()
-        .addMetaTag('viewport', 'width=device-width, initial-scale=1.0')
-        .setMimeType(ContentService.MimeType.HTML);
+    return template.evaluate().addMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 }
