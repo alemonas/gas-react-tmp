@@ -13,7 +13,9 @@ export async function client(endpoint, { data, token, headers: customHeaders, ..
         ...customConfig,
     };
 
-    return fetch(`${apiURL}/${endpoint}`, config).then(async (response) => {
+    const url = apiURL + '/' + endpoint;
+
+    return fetch(url, config).then(async (response) => {
         const data = await response.json();
         if (response.ok) {
             return data;

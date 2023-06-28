@@ -7,9 +7,10 @@ export const Spinner = () => {
 };
 
 export const Alert = ({ variant = 'primary', children }) => {
+    const alertVariantClass = 'alert-' + variant;
     return (
         <div className="alert" role="alert">
-            <span className={`alert-${variant}`}>{children}</span>
+            <span className={alertVariantClass}>{children}</span>
         </div>
     );
 };

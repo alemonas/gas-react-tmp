@@ -1,6 +1,7 @@
 import useLocalStorageState from '../hooks/useLocalStorageState';
 import { BEONER_USER_EMAIL_LOCAL_STORAGE_KEY, REFERRAL_CODE_URL_PARAM_NAME } from '../constants';
 import { getEncodedUserEmail } from '../utils/user';
+import { Alert } from './Lib';
 
 const beonPlatformUrl = process.env.BEON_PLATFORM_URL;
 
@@ -35,7 +36,7 @@ function JobsTable({ jobs = [] }) {
                 {jobs.map((job) => {
                     const stagingBeonPlatformUrl = 'https://platform.dev.beon.tech';
                     const publicJobUrl = stagingBeonPlatformUrl + '/jobs/' + job.uuid;
-                    const linkedinHrefLink = `https://www.linkedin.com/sharing/share-offsite/?url=${publicJobUrl}`;
+                    const linkedinHrefLink = 'https://www.linkedin.com/sharing/share-offsite/?url=' + publicJobUrl;
                     return (
                         <tr key={job.id}>
                             <td>{job.title}</td>
