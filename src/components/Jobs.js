@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useAsync from '../hooks/useAsync';
-import { client } from '../utils/api-client';
+import { client } from '../utils/apiClient';
 import JobsTable from './JobsTable';
 import { Alert, Spinner } from './Lib';
 
@@ -19,11 +19,7 @@ function Jobs() {
         return <Alert>There was an error... please try again later</Alert>;
     }
 
-    return (
-        <div>
-            <JobsTable jobs={jobs.data} />
-        </div>
-    );
+    return <JobsTable jobs={jobs.data} />;
 }
 
 export default Jobs;
