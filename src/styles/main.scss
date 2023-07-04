@@ -1,6 +1,7 @@
 $base-color: rgb(58, 105, 255, 1);
 $danger-color: #ef5350;
 $warning-color: #85640c;
+$linkedin-bg-color: #0069b8;
 
 html,
 body {
@@ -19,6 +20,10 @@ a {
     box-sizing: border-box;
 }
 
+.main {
+    padding: 1rem;
+}
+
 .jobs-table-container {
     border-radius: 0.5rem;
     overflow: hidden;
@@ -27,6 +32,10 @@ a {
 .jobs-table {
     border-collapse: collapse;
     width: 100%;
+
+    &__title {
+        color: $base-color;
+    }
 
     th,
     td {
@@ -49,9 +58,46 @@ a {
 }
 
 .generic-invite {
-    padding: 1rem;
+    &__header {
+        display: flex;
 
-    text-align: right;
+        &__title {
+            color: $base-color;
+        }
+    }
+
+    &__share-actions {
+        // margin-top: 1rem;
+        margin: 1rem 0 0 0.5rem;
+
+        &__linkedin {
+            &__link {
+                display: flex;
+                --tw-bg-opacity: 0.5;
+                // background-color: rgb(233 234 240 / var(--tw-bg-opacity));
+                background-color: rgb(206 217 255 / var(--tw-bg-opacity));
+                // background-color: #287bbc;
+                padding: 0.5rem;
+                border-radius: 1rem;
+                font-size: 0.75rem;
+                width: 105px;
+                text-align: center;
+                align-items: center;
+
+                > span {
+                    margin-right: 0.25rem;
+                    // color: $base-color;
+                    color: $linkedin-bg-color;
+                    // color: white;
+                    font-weight: bold;
+                }
+
+                &__img {
+                    // padding-left: 0.25rem;
+                }
+            }
+        }
+    }
 
     &__button {
         border: none;

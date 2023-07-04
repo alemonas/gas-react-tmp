@@ -20,6 +20,7 @@ function JobsTable({ jobs = [] }) {
 
     return (
         <div className="jobs-table-container">
+            <h2 className="jobs-table__title">Referral links by Job</h2>
             <table className="jobs-table">
                 <thead>
                     <tr>
@@ -33,7 +34,8 @@ function JobsTable({ jobs = [] }) {
                     {jobs.map((job) => {
                         const stagingBeonPlatformUrl = 'https://platform.dev.beon.tech';
                         const publicJobUrl = getPublicJobUrl(job);
-                        const linkedinHrefLink = 'https://www.linkedin.com/sharing/share-offsite/?url=' + publicJobUrl;
+                        const linkedinHrefLink =
+                            'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(publicJobUrl);
                         return (
                             <tr key={job.id}>
                                 <td>{job.title}</td>

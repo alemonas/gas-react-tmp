@@ -23,12 +23,37 @@ function GenericReferralInvite() {
             console.error(e);
         }
     };
+
+    const linkedinHrefLink =
+        'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(genericReferralCodeLink);
+
     return (
         <div className="generic-invite">
-            <span className="generic-invite__link-text">{genericReferralCodeLink}</span>
-            <button className="generic-invite__button" onClick={handleCopyGenericLink}>
-                {copyLinkSuceess ? '(Copied)' : 'Copy Referral link'}
-            </button>
+            <div className="generic-invite__header">
+                <h2 className="generic-invite__header__title">Generic Referral Link</h2>
+                <div className="generic-invite__share-actions">
+                    <a
+                        className="generic-invite__share-actions__linkedin__link"
+                        href={linkedinHrefLink}
+                        target="_blank"
+                    >
+                        <span>Share on </span>
+                        <img
+                            className="generic-invite__share-actions__linkedin__link__img"
+                            alt="linkedin"
+                            src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                </div>
+            </div>
+            <div className="generic-invite__referral-link">
+                <span className="generic-invite__link-text">{genericReferralCodeLink}</span>
+                <button className="generic-invite__button" onClick={handleCopyGenericLink}>
+                    {copyLinkSuceess ? '(Copied)' : 'Copy Referral link'}
+                </button>
+            </div>
         </div>
     );
 }
