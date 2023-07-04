@@ -24,6 +24,12 @@ a {
     padding: 1rem;
 }
 
+.jobs {
+    &__title {
+        color: $base-color;
+    }
+}
+
 .jobs-table-container {
     border-radius: 0.5rem;
     overflow: hidden;
@@ -32,10 +38,6 @@ a {
 .jobs-table {
     border-collapse: collapse;
     width: 100%;
-
-    &__title {
-        color: $base-color;
-    }
 
     th,
     td {

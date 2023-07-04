@@ -20,7 +20,6 @@ function JobsTable({ jobs = [] }) {
 
     return (
         <div className="jobs-table-container">
-            <h2 className="jobs-table__title">Referral links by Job</h2>
             <table className="jobs-table">
                 <thead>
                     <tr>

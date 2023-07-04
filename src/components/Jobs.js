@@ -19,7 +19,12 @@ function Jobs() {
         return <Alert>There was an error... please try again later</Alert>;
     }
 
-    return <JobsTable jobs={jobs.data} />;
+    return (
+        <div className="jobs">
+            <h2 className="jobs__title">Referral links by Job</h2>
+            <JobsTable jobs={jobs.data} />;
+        </div>
+    );
 }
 
 export default Jobs;
