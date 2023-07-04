@@ -10,6 +10,7 @@
     "gpush": "clasp push",
     "gstart": "clasp push --watch",
     "gbuild": "yarn build & yarn gpush",
+    "gopen": "clasp open",
     "dev": "parcel ./src/index.html --dist-dir ./public --port 1235",
     "build": "parcel build ./src/index.html --dist-dir ./google-apps-scripts"
   },
