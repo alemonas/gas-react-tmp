@@ -1,6 +1,6 @@
 # README
 
-# gas-react-tmp
+# BEON's Referral Program Web App
 
 This is a Google Script Web App template project that uses React.js to generate the code for Beon's referral program. It leverages Google Clasp and Parcel for development and deployment.
 
@@ -39,13 +39,22 @@ Before using this template project, ensure you have the following prerequisites 
 Clone the repository:
 
 ```shell
-git clone https://github.com/alemonas/gas-react-tmp.git
+git clone git@github.com:BEON-Tech/referral-program.git
 ```
 
 Install dependencies:
 
 ```shell
 yarn install
+```
+
+Ask for the next environment variables:
+
+```env
+GENERATE_SOURCEMAP=false
+BEON_API_URL=""
+BEON_PLATFORM_URL=""
+EXTERNAL_API_KEY=""
 ```
 
 Run the app:
