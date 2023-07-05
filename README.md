@@ -10,10 +10,9 @@ This is a Google Script Web App template project that uses React.js to generate 
 -   [Features](#features)
 -   [Prerequisites](#prerequisites)
 -   [Installation](#installation)
--   [Usage](#usage)
+-   [Run](#run)
 -   [Deployment](#deployment)
 -   [Contributing](#contributing)
--   [License](#license)
 
 ## Introduction
 
@@ -34,7 +33,7 @@ Before using this template project, ensure you have the following prerequisites 
 -   npm (Node Package Manager)
 -   Google Clasp CLI (https://github.com/google/clasp)
 
-## Install & Run
+## Installation
 
 Clone the repository:
 
@@ -47,6 +46,8 @@ Install dependencies:
 ```shell
 yarn install
 ```
+
+## Run
 
 Ask for the next environment variables:
 
