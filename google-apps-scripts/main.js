@@ -31,6 +31,7 @@ function getEnvironmentProperties() {
 function doGet() {
     const authUserEmail = Session.getActiveUser().getEmail();
     const template = HtmlService.createTemplateFromFile('index');
+    // NOTE: envProps would be use as environment variables from Google Script Properties (is still in progress)
     const envProps = getEnvironmentProperties();
 
     template.authUserEmail = authUserEmail;

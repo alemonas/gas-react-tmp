@@ -11,7 +11,7 @@
     <body>
         <div id="app">test 4</div>
         <script type="module">
-            // Access user auth email pass from Google Script doGet function
+            // Access userAuthEmail pass from Google Script doGet() function
             // using Google Script Standars Scriptlets
             // https://developers.google.com/apps-script/guides/html/templates#standard_scriptlets
             const googleAuthUserEmail = '<?= authUserEmail ?>';
@@ -20,11 +20,14 @@
             const envProps = '<?= JSON.stringify(envProps) ?>';
             const isValidEnvProps = !envProps.includes('envProps');
 
-            // TODO: Remove beonerTestUserEmail and show an error the email is not valid
+            // The next line is just a workaround to run the app locally without getting the userAuthEmail
+            // from Google Script doGet() function and harcoding the email value.
             const beonerTestUserEmail = 'alejandro.monasterios@beon.tech';
             const beonerUserEmail = isValidEmail ? googleAuthUserEmail : beonerTestUserEmail;
             const { beonApiUrl = '', beonPlatformUrl = '' } = isValidEnvProps ? JSON.parse(envProps) : {};
 
+            // NOTE: The values `beon-api-url` and `beon-platform-url` are still in progress to
+            // get use it as environment variables from Google Script Properties
             localStorage.setItem('beoner-user-email', JSON.stringify(beonerUserEmail));
             localStorage.setItem('beon-api-url', JSON.stringify(beonApiUrl));
             localStorage.setItem('beon-platform-url', JSON.stringify(beonPlatformUrl));

@@ -66,6 +66,11 @@ yarn dev
 
 ## Deployment
 
+```
+NOTE: To run the following steps you must have permission/access to the Google Apps Script,
+in case you don't have access, please contact the team
+```
+
 To deploy your Google Script Web App, you need to use Google Clasp:
 
 Authenticate with Google by running the following command and following the instructions:
