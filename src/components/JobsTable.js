@@ -8,7 +8,7 @@ function JobsTable({ jobs = [] }) {
     const [userAuthEmail] = useLocalStorageState(BEONER_USER_EMAIL_LOCAL_STORAGE_KEY);
 
     if (jobs.length === 0) {
-        return <Alert>No referral jobs were found</Alert>;
+        return <Alert variant="secondary">(No referral jobs were found...)</Alert>;
     }
 
     const getPublicJobUrl = (job = {}) => {
