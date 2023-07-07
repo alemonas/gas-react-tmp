@@ -3,6 +3,7 @@ import { BEONER_USER_EMAIL_LOCAL_STORAGE_KEY, REFERRAL_CODE_URL_PARAM_NAME } fro
 import { getEncodedUserEmail } from '../utils/user';
 import { Alert } from './Lib';
 import { beonPlatformUrl } from '../config';
+import { numberToUSDCurrencyFormat } from '../utils/currency';
 
 function JobsTable({ jobs = [] }) {
     const [userAuthEmail] = useLocalStorageState(BEONER_USER_EMAIL_LOCAL_STORAGE_KEY);
@@ -53,7 +54,7 @@ function JobsTable({ jobs = [] }) {
                                         />
                                     </a>
                                 </td>
-                                <td>{job.referralBonus + ' $us' || 'not defined'} </td>
+                                <td>{'USD ' + numberToUSDCurrencyFormat(job.referralBonus) || 'not defined'} </td>
                             </tr>
                         );
                     })}
