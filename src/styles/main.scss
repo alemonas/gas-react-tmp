@@ -29,6 +29,10 @@ a {
     &__title {
         color: $base-color;
     }
+
+    &__error {
+        margin-top: 2rem;
+    }
 }
 
 .jobs-table-container {
@@ -148,7 +152,6 @@ a {
 }
 
 .alert {
-    font-weight: bold;
     text-align: center;
     margin: 0.5rem;
 
@@ -162,6 +165,10 @@ a {
 
     &-warning {
         color: $warning-color;
+    }
+
+    &-danger {
+        color: $danger-color;
     }
 }
 

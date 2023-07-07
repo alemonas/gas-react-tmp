@@ -16,7 +16,11 @@ function Jobs() {
     }
 
     if (error) {
-        return <Alert>There was an error... please try again later</Alert>;
+        return (
+            <div className="jobs__error">
+                <Alert variant="danger">There was an error getting the Referral Jobs... please try again later</Alert>
+            </div>
+        );
     }
 
     return (
