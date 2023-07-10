@@ -38,6 +38,8 @@ a {
 .jobs-table-container {
     border-radius: 0.5rem;
     overflow: hidden;
+    border: 1px solid #eee;
+    border-top: none;
 }
 
 .jobs-table {
@@ -73,6 +75,7 @@ a {
         margin-left: 0.5rem;
         border: 0;
         cursor: pointer;
+        background: none;
     }
 }
 
