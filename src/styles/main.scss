@@ -62,6 +62,18 @@ a {
     &__link {
         color: $base-color;
     }
+
+    &__referral-link {
+        display: flex;
+        text-align: center;
+        align-items: center;
+    }
+
+    &__copy-button {
+        margin-left: 0.5rem;
+        border: 0;
+        cursor: pointer;
+    }
 }
 
 .generic-invite {
