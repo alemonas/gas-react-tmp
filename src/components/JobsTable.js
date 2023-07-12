@@ -17,7 +17,7 @@ function JobsTable({ jobs = [] }) {
                     <tr>
                         <th>Job Description</th>
                         <th>Referral Link</th>
-                        <th>Share Actions</th>
+                        <th style={{ textAlign: 'center' }}>Share Actions</th>
                         <th>Referral Bonus</th>
                     </tr>
                 </thead>

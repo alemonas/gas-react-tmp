@@ -22,12 +22,13 @@ a {
 }
 
 .main {
-    padding: 1rem;
+    // padding: 1rem;
 }
 
 .jobs {
     &__title {
         color: $base-color;
+        margin-top: 0;
     }
 
     &__error {
@@ -71,6 +72,10 @@ a {
         align-items: center;
     }
 
+    &__share-actions {
+        text-align: center;
+    }
+
     &__copy-button {
         margin-left: 0.5rem;
         border: 0;
@@ -80,6 +85,11 @@ a {
 }
 
 .generic-invite {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    margin-top: 0.75rem;
+
     &__header {
         display: flex;
 
@@ -88,34 +98,56 @@ a {
         }
     }
 
+    &__referral-link {
+        display: flex;
+        --tw-bg-opacity: 0.5;
+        background-color: rgb(206 217 255 / var(--tw-bg-opacity));
+        padding: 0.5rem;
+        border-radius: 1rem;
+        height: fit-content;
+        text-align: center;
+        align-items: center;
+        margin: 1rem 0 0 0.5rem;
+        width: 122px;
+
+        &__button {
+            border: 0;
+            cursor: pointer;
+            background: none;
+            display: flex;
+            text-align: center;
+            align-items: center;
+            > span {
+                color: $linkedin-bg-color;
+                font-weight: bold;
+            }
+            > img {
+                margin-left: 0.5rem;
+            }
+        }
+    }
+
     &__share-actions {
-        // margin-top: 1rem;
         margin: 1rem 0 0 0.5rem;
 
         &__linkedin {
             &__link {
                 display: flex;
                 --tw-bg-opacity: 0.5;
-                // background-color: rgb(233 234 240 / var(--tw-bg-opacity));
                 background-color: rgb(206 217 255 / var(--tw-bg-opacity));
-                // background-color: #287bbc;
                 padding: 0.5rem;
                 border-radius: 1rem;
                 font-size: 0.75rem;
-                width: 105px;
+                width: 122px;
+
                 text-align: center;
                 align-items: center;
 
                 > span {
                     margin-right: 0.25rem;
-                    // color: $base-color;
+                    margin-left: 0.5rem;
                     color: $linkedin-bg-color;
-                    // color: white;
                     font-weight: bold;
-                }
-
-                &__img {
-                    // padding-left: 0.25rem;
                 }
             }
         }

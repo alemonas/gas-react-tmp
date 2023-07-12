@@ -51,14 +51,16 @@ function JobTableItem({ job = {}, userEmail = '' }) {
                 </div>
             </td>
             <td>
-                <a href={linkedinHrefLink} target="_blank">
-                    <img
-                        alt="linkedin"
-                        src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png"
-                        width={24}
-                        height={24}
-                    />
-                </a>
+                <div className="jobs-table__share-actions">
+                    <a href={linkedinHrefLink} target="_blank">
+                        <img
+                            alt="linkedin"
+                            src="https://cdn2.iconfinder.com/data/icons/social-media-2285/512/1_Linkedin_unofficial_colored_svg-512.png"
+                            width={24}
+                            height={24}
+                        />
+                    </a>
+                </div>
             </td>
             <td>{'USD ' + numberToUSDCurrencyFormat(job.referralBonus) || 'not defined'} </td>
         </tr>

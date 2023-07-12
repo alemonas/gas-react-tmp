@@ -30,7 +30,7 @@ function GenericReferralInvite() {
     return (
         <div className="generic-invite">
             <div className="generic-invite__header">
-                <h2 className="generic-invite__header__title">Generic Referral Link</h2>
+                <h2 className="generic-invite__header__title">Company Referral Link</h2>
                 <div className="generic-invite__share-actions">
                     <a
                         className="generic-invite__share-actions__linkedin__link"
@@ -47,12 +47,33 @@ function GenericReferralInvite() {
                         />
                     </a>
                 </div>
-            </div>
-            <div className="generic-invite__referral-link">
-                <span className="generic-invite__link-text">{genericReferralCodeLink}</span>
-                <button className="generic-invite__button" onClick={handleCopyGenericLink}>
-                    {copyLinkSuceess ? '(Copied)' : 'Copy Referral link'}
-                </button>
+                <div className="generic-invite__referral-link">
+                    {!copyLinkSuceess ? (
+                        <button
+                            className="generic-invite__referral-link__button"
+                            onClick={() => handleCopyGenericLink(genericReferralCodeLink)}
+                        >
+                            <span>Copy Link</span>
+                            <img
+                                src="https://cdn3.iconfinder.com/data/icons/user-interface-774/32/28-Copy-24.png"
+                                width={20}
+                                height={20}
+                            />
+                        </button>
+                    ) : (
+                        <button
+                            className="generic-invite__referral-link__button"
+                            onClick={() => handleCopyGenericLink(genericReferralCodeLink)}
+                        >
+                            <span>( copied )</span>
+                            <img
+                                src="https://cdn0.iconfinder.com/data/icons/social-messaging-ui-color-shapes/128/check-circle-blue-25.png"
+                                width={20}
+                                height={20}
+                            />
+                        </button>
+                    )}
+                </div>
             </div>
         </div>
     );

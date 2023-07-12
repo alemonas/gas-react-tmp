@@ -25,7 +25,7 @@ function Jobs() {
 
     return (
         <div className="jobs">
-            <h2 className="jobs__title">Referral links by Job</h2>
+            <h2 className="jobs__title">Referral links by Open Role</h2>
             <JobsTable jobs={jobs.data} />
         </div>
     );
