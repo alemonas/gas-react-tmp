@@ -3,7 +3,7 @@ export const engineerVerificationStatus = {
     CulturalMatchPending: 'Cultural Match Pending',
     CulturalMatchApproved: 'Cultural Match Approved',
     CulturalMatchRejected: 'Cultural Match Rejected',
-    TechnicalAssesmentRejected: 'Technical Assesment Rejected',
+    TechnicalAssesmentRejected: 'Technical Assessment Rejected',
     Verified: 'Verified',
     InReview: 'In Review',
     ReviewRejected: 'Review Rejected',
