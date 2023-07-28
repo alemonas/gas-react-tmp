@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { beonPlatformUrl } from '../config';
-import { copyToClipboard, handleCopyGenericLink } from '../utils/copyClipboard';
+import { copyToClipboard } from '../utils/copyClipboard';
 import { numberToUSDCurrencyFormat } from '../utils/currency';
 import { getEncodedUserEmail } from '../utils/user';
 import { REFERRAL_CODE_URL_PARAM_NAME } from '../constants';
