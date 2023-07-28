@@ -1,6 +1,8 @@
-export const copyToClipboard = async (text) => {
+import copy from 'copy-to-clipboard';
+
+export const copyToClipboard = (text) => {
     try {
-        await navigator.clipboard.writeText(text);
+        copy(text);
     } catch (e) {
         console.error('Failed to copy text: ', e);
     }
