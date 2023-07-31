@@ -62,7 +62,11 @@ function JobTableItem({ job = {}, userEmail = '' }) {
                     </a>
                 </div>
             </td>
-            <td>{'USD ' + numberToUSDCurrencyFormat(job.referralBonus) || 'not defined'} </td>
+            {job?.referralBonus ? (
+                <td>{'USD ' + numberToUSDCurrencyFormat(job.referralBonus)} </td>
+            ) : (
+                <td>Not defined</td>
+            )}
         </tr>
     );
 }
