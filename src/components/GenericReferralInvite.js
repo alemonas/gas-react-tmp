@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { beonPlatformUrl } from '../config';
+import { beonTechUrl } from '../config';
 import { BEONER_USER_EMAIL_LOCAL_STORAGE_KEY, REFERRAL_CODE_URL_PARAM_NAME } from '../constants';
 import useLocalStorageState from '../hooks/useLocalStorageState';
 import { copyToClipboard } from '../utils/copyClipboard';
@@ -10,7 +10,8 @@ function GenericReferralInvite() {
     const [copyLinkSuceess, setCopyLinkSuccess] = useState(false);
 
     const referralCodeParam = '?' + REFERRAL_CODE_URL_PARAM_NAME + '=' + getEncodedUserEmail(userAuthEmail);
-    const genericReferralCodeLink = beonPlatformUrl + '/engineers/onboarding' + referralCodeParam;
+    const beonTechEngineersLink = beonTechUrl + '/engineers';
+    const genericReferralCodeLink = beonTechEngineersLink + referralCodeParam;
 
     const handleCopyGenericLink = () => {
         try {
